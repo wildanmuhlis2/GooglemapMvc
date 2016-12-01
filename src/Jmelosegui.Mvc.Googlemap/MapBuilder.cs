@@ -6,10 +6,22 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+#if NET45
     using System.Web;
-    using System.Web.Mvc;
+    using System.Web.Mvc; 
+#endif
 
-    public class MapBuilder : IHtmlString
+#if NETSTANDARD1_6
+
+#endif
+
+    public class MapBuilder :
+#if NET45
+        IHtmlString 
+#endif
+#if NETSTANDARD1_6
+        Microsoft.AspNet.Html.Abstractions.IHtmlContent
+#endif
     {
         public static readonly string Key = typeof(ScriptRegistrar).AssemblyQualifiedName;
         private readonly ScriptRegistrar scriptRegistrar;
@@ -382,7 +394,6 @@ namespace Jmelosegui.Mvc.GoogleMap
             this.Component.Libraries = value;
             return this;
         }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public MapBuilder BindTo<T, TMapObject>(IEnumerable<T> dataSource, Action<MapObjectBindingFactory<TMapObject>> itemDataBound)

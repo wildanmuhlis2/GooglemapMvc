@@ -37,18 +37,22 @@
     <None Include="Jmelosegui.Mvc.Googlemap.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Jmelosegui.Mvc.Googlemap\Jmelosegui.Mvc.GoogleMap.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="content\Scripts\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Jmelosegui.Mvc.Googlemap\Scripts\jmelosegui.googlemap.js">
       <Link>content\Scripts\jmelosegui.googlemap.js</Link>
     </Content>
     <Content Include="..\Jmelosegui.Mvc.Googlemap\Scripts\markerclusterer.js">
       <Link>content\Scripts\markerclusterer.js</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ContentFile Include="..\Jmelosegui.Mvc.Googlemap\Scripts\jmelosegui.googlemap.js">
+      <Link>contentFiles\any\any\Scripts\jmelosegui.googlemap.js</Link>
+      <PackageBuildAction>Content</PackageBuildAction>
+    </ContentFile>
+    <ContentFile Include="..\Jmelosegui.Mvc.Googlemap\Scripts\markerclusterer.js">
+      <Link>contentFiles\any\any\Scripts\markerclusterer.js</Link>
+      <PackageBuildAction>Content</PackageBuildAction>
+    </ContentFile>
   </ItemGroup>
   <ImportGroup>
     <Import Project="$(NuProjPath)\NuProj.targets" />

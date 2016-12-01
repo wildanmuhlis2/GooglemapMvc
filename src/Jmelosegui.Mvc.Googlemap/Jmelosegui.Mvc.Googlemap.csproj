@@ -34,6 +34,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <NoWarn>
     </NoWarn>
+    <DocumentationFile>bin\Debug\Jmelosegui.Mvc.GoogleMap.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

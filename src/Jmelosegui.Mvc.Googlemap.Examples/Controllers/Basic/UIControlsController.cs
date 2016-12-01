@@ -37,6 +37,7 @@
             this.MapTypeControlPosition = ControlPosition.TopRight;
         }
 
+
         public bool ShowScaleControl { get; set; }
 
         public bool ShowPanControl { get; set; }

@@ -10,8 +10,10 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.IO;
     using System.Linq;
     using System.Threading;
+#if NET45
     using System.Web.Mvc;
-    using System.Web.UI;
+    using System.Web.UI; 
+#endif
 
     public class Map
     {
@@ -180,8 +182,16 @@ namespace Jmelosegui.Mvc.GoogleMap
 
         protected internal virtual void WriteInitializationScript(TextWriter writer)
         {
+#if NET45
             var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); 
+#endif
+
+//TODO Is this available on FULL Framework?
+#if NETSTANDARD1_6
+            var currentCulture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+#endif
 
             var objectWriter = new ClientSideObjectWriter(this.Id, "GoogleMap", writer);
 
@@ -232,7 +242,13 @@ namespace Jmelosegui.Mvc.GoogleMap
             // TODO: Call a virtual method OnCompleting to allow derived class to inject its own json objects
             objectWriter.Complete();
 
-            Thread.CurrentThread.CurrentCulture = currentCulture;
+#if NET45
+            Thread.CurrentThread.CurrentCulture = currentCulture; 
+#endif
+
+#if NETSTANDARD1_6
+            CultureInfo.CurrentCulture = currentCulture; 
+#endif
         }
 
         protected virtual void WriteHtml(HtmlTextWriter writer)
