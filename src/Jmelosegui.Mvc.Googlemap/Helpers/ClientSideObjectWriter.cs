@@ -11,6 +11,9 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Text;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+#if NETSTANDARD1_6
+    using System.Reflection;
+#endif
 
     public class ClientSideObjectWriter
     {
@@ -219,7 +222,7 @@ namespace Jmelosegui.Mvc.GoogleMap
                 throw new ArgumentNullException(nameof(name));
             }
 
-            this.Append(string.Format(CultureInfo.InvariantCulture, "{0}:{1}", name, value.ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture)));
+            this.Append(string.Format(CultureInfo.InvariantCulture, "{0}:{1}", name, value.ToString().ToLower()));
 
             return this;
         }

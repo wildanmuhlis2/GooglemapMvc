@@ -5,6 +5,9 @@ namespace Jmelosegui.Mvc.GoogleMap
 {
     using System;
     using System.Linq;
+#if NETSTANDARD1_6
+    using System.Reflection;
+#endif
 
     internal static class EnumExtensions
     {

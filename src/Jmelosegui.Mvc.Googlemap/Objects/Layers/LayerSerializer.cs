@@ -4,7 +4,6 @@
 namespace Jmelosegui.Mvc.GoogleMap
 {
     using System.Collections.Generic;
-    using System.Globalization;
 
     public class LayerSerializer : ISerializer
     {
@@ -19,7 +18,7 @@ namespace Jmelosegui.Mvc.GoogleMap
         public IDictionary<string, object> Serialize()
         {
             IDictionary<string, object> result = new Dictionary<string, object>();
-            result["name"] = this.Layer.Name.ToLower(CultureInfo.InvariantCulture);
+            result["name"] = this.Layer.Name.ToLowerInvariant();
             result["options"] = this.LayerSerialize();
             return result;
         }

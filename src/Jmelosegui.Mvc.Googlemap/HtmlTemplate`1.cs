@@ -4,8 +4,14 @@
 namespace Jmelosegui.Mvc.GoogleMap
 {
     using System;
-    using System.Web.WebPages;
     using Newtonsoft.Json;
+#if NET45
+    using System.Web.WebPages;
+#endif
+#if NETSTANDARD1_6
+    using Microsoft.AspNetCore.Mvc.Razor;
+    using System.Text.Encodings.Web;
+#endif
 
     public class HtmlTemplate<T>
         where T : class
@@ -71,10 +77,15 @@ namespace Jmelosegui.Mvc.GoogleMap
                     var helperResult = result as HelperResult;
 
                     if (helperResult != null)
-                        {
-                            helperResult.WriteTo(writer);
-                            return;
-                        }
+                    {
+#if NET45
+                        helperResult.WriteTo(writer);
+#endif
+#if NETSTANDARD1_6
+                        helperResult.WriteTo(writer, HtmlEncoder.Default);
+#endif
+                        return;
+                    }
 
                     if (result != null)
                     {

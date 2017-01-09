@@ -3,12 +3,25 @@
 
 namespace Jmelosegui.Mvc.GoogleMap
 {
+    
     using System;
+#if NET45
     using System.Web.Mvc;
+#endif
+#if NETSTANDARD1_6
+    using Microsoft.AspNetCore.Mvc.Rendering;
+#endif
 
     public static class HtmlHelperExtension
     {
-        public static MapBuilder GoogleMap(this HtmlHelper helper)
+        public static MapBuilder GoogleMap(
+#if NET45
+            this HtmlHelper helper
+#endif
+#if NETSTANDARD1_6
+            this IHtmlHelper helper
+#endif
+            )
         {
             if (helper == null)
             {

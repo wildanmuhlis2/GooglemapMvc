@@ -8,19 +8,22 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Globalization;
 #if NET45
     using System.Web;
-    using System.Web.Mvc; 
+    using System.Web.Mvc;
 #endif
 
 #if NETSTANDARD1_6
-
+    using Microsoft.AspNetCore.Html;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using System.Text.Encodings.Web;    
+    using System.IO;
 #endif
 
     public class MapBuilder :
 #if NET45
-        IHtmlString 
+        IHtmlString
 #endif
 #if NETSTANDARD1_6
-        Microsoft.AspNet.Html.Abstractions.IHtmlContent
+        IHtmlContent
 #endif
     {
         public static readonly string Key = typeof(ScriptRegistrar).AssemblyQualifiedName;
@@ -164,20 +167,6 @@ namespace Jmelosegui.Mvc.GoogleMap
 
             var factory = new ImageMapTypeFactory(this.Component);
             action(factory);
-            return this;
-        }
-
-        [Obsolete("This method is obsolete, use the Center method instead")]
-        public MapBuilder Latitude(double value)
-        {
-            this.Component.Latitude = value;
-            return this;
-        }
-
-        [Obsolete("This method is obsolete, use the Center method instead")]
-        public MapBuilder Longitude(double value)
-        {
-            this.Component.Longitude = value;
             return this;
         }
 
@@ -393,7 +382,7 @@ namespace Jmelosegui.Mvc.GoogleMap
 
             this.Component.Libraries = value;
             return this;
-        }
+        }        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public MapBuilder BindTo<T, TMapObject>(IEnumerable<T> dataSource, Action<MapObjectBindingFactory<TMapObject>> itemDataBound)
@@ -458,5 +447,20 @@ namespace Jmelosegui.Mvc.GoogleMap
         {
             return this.ToHtmlString();
         }
+
+#if NETSTANDARD1_6
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
+            if (encoder == null)
+            {
+                throw new ArgumentNullException("encoder");
+            }
+            writer.Write(this.ToString());
+        }
+#endif
     }
 }

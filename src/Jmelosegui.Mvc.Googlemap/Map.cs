@@ -8,11 +8,11 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
-    using System.Threading;
+    using System.Linq;    
 #if NET45
     using System.Web.Mvc;
-    using System.Web.UI; 
+    using System.Web.UI;
+    using System.Threading;
 #endif
 
     public class Map
@@ -161,11 +161,9 @@ namespace Jmelosegui.Mvc.GoogleMap
 
         public void Render()
         {
-            TextWriter writer = this.builder.ViewContext.Writer;
-            using (HtmlTextWriter htmlTextWriter = new HtmlTextWriter(writer))
-            {
-                this.WriteHtml(htmlTextWriter);
-            }
+            TextWriter writer = this.builder.ViewContext.Writer;            
+            this.WriteHtml(writer);
+            
         }
 
         public string ToHtmlString()
@@ -173,7 +171,7 @@ namespace Jmelosegui.Mvc.GoogleMap
             string result;
             using (StringWriter stringWriter = new StringWriter(CultureInfo.InvariantCulture))
             {
-                this.WriteHtml(new HtmlTextWriter(stringWriter));
+                this.WriteHtml(stringWriter);
                 result = stringWriter.ToString();
             }
 
@@ -184,10 +182,10 @@ namespace Jmelosegui.Mvc.GoogleMap
         {
 #if NET45
             var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); 
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 #endif
 
-//TODO Is this available on FULL Framework?
+            //TODO Is this available on FULL Framework?
 #if NETSTANDARD1_6
             var currentCulture = CultureInfo.CurrentCulture;
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
@@ -251,13 +249,16 @@ namespace Jmelosegui.Mvc.GoogleMap
 #endif
         }
 
-        protected virtual void WriteHtml(HtmlTextWriter writer)
+        protected virtual void WriteHtml(TextWriter writer)
         {
             if (writer == null)
             {
                 throw new ArgumentNullException(nameof(writer));
             }
-
+#if NET45
+            using (HtmlTextWriter htmlTextWriter = new HtmlTextWriter(writer))
+            {
+#endif
             IHtmlNode rootTag = this.builder.Build();
             rootTag.WriteTo(writer);
 
@@ -282,6 +283,9 @@ namespace Jmelosegui.Mvc.GoogleMap
 
                 infoWindowsRootTag.WriteTo(writer);
             }
+#if NET45
+            }
+#endif
         }
 
         private void PrepareScripts()
@@ -359,24 +363,43 @@ namespace Jmelosegui.Mvc.GoogleMap
                 return true;
             }
 
-            if (new[] { "GET", "POST" }.All(method => method != request.HttpMethod.ToUpper(CultureInfo.InvariantCulture)))
+#if NET45
+            string httpMethod = request.HttpMethod;
+#endif
+#if NETSTANDARD1_6
+            string httpMethod = request.Method;
+#endif
+
+            if (new[] { "GET", "POST" }.All(method => method != httpMethod.ToUpperInvariant()))
             {
                 return true;
             }
 
-            if (request.HttpMethod.ToUpper(CultureInfo.InvariantCulture) == "GET")
+            if (httpMethod.ToUpperInvariant() == "GET")
             {
+#if NET45
+                string value = request.QueryString.Get("__LoadGoogleMapScript__");
+#endif
+#if NETSTANDARD1_6
+                string value = request.Query["__LoadGoogleMapScript__"];
+#endif
                 bool result;
-                if (bool.TryParse(request.QueryString.Get("__LoadGoogleMapScript__"), out result))
+                if (bool.TryParse(value, out result))
                 {
                     return result;
                 }
             }
 
-            if (request.HttpMethod.ToUpper(CultureInfo.InvariantCulture) == "POST")
+            if (httpMethod.ToUpperInvariant() == "POST")
             {
+#if NET45
+                string value = request.Form.Get("__LoadGoogleMapScript__");
+#endif
+#if NETSTANDARD1_6
+                string value = request.Form["__LoadGoogleMapScript__"];
+#endif
                 bool result;
-                if (bool.TryParse(request.Form.Get("__LoadGoogleMapScript__"), out result))
+                if (bool.TryParse(value, out result))
                 {
                     return result;
                 }

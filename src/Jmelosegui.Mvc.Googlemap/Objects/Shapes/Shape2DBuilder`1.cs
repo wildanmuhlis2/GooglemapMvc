@@ -3,7 +3,7 @@
 
 namespace Jmelosegui.Mvc.GoogleMap
 {
-    using System.Drawing;
+    using Jmelosegui.Mvc.GoogleMap.Drawing;
 
     public abstract class Shape2DBuilder<TShape2D> : ShapeBuilder<TShape2D>
         where TShape2D : Shape2D

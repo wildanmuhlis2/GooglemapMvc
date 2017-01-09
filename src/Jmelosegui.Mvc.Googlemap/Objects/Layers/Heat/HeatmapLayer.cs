@@ -6,7 +6,7 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Drawing;
+    using Jmelosegui.Mvc.GoogleMap.Drawing;
 
     public class HeatmapLayer : Layer, ILocationContainer
     {

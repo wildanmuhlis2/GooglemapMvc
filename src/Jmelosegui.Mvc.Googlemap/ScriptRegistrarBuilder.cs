@@ -4,9 +4,24 @@
 namespace Jmelosegui.Mvc.GoogleMap
 {
     using System;
+#if NET45
     using System.Web;
+#endif
+#if NETSTANDARD1_6    
+    using Microsoft.AspNetCore.Html;
+    using System.Text.Encodings.Web;
+    using System.IO;
+#endif
 
-    public class ScriptRegistrarBuilder : IHtmlString
+
+    public class ScriptRegistrarBuilder
+#if NET45
+    : IHtmlString
+#endif
+#if NETSTANDARD1_6
+    : IHtmlContent
+#endif
+
     {
         public ScriptRegistrarBuilder(ScriptRegistrar scriptRegistrar)
         {
@@ -37,8 +52,6 @@ namespace Jmelosegui.Mvc.GoogleMap
 
         public ScriptRegistrarBuilder ScriptsBasePath(string basePath)
         {
-            UrlHelper.AssertVirtualPath(basePath, nameof(basePath));
-
             this.ScriptRegistrar.BasePath = basePath;
             return this;
         }
@@ -53,6 +66,21 @@ namespace Jmelosegui.Mvc.GoogleMap
             this.ScriptRegistrar.FixedScriptCollection.Add(scriptFileName);
             return this;
         }
+
+#if NETSTANDARD1_6
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException("writer");
+            }
+            if (encoder == null)
+            {
+                throw new ArgumentNullException("encoder");
+            }
+            writer.Write(this.ToString());
+        }
+#endif
 
         private static ScriptRegistrarBuilder PassThroughNonNull(ScriptRegistrarBuilder builder)
         {

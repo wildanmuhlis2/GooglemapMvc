@@ -129,8 +129,11 @@ Desktop.ini
 $RECYCLE.BIN/
 
 #Others
-src/Jmelosegui.Mvc.Googlemap.Examples/Scripts/markerclusterer.js
-src/Jmelosegui.Mvc.Googlemap.Examples/Scripts/jmelosegui.googlemap.js
+/src/Jmelosegui.Mvc.Googlemap.Examples/Scripts/markerclusterer.js
+/src/Jmelosegui.Mvc.Googlemap.Examples/Scripts/jmelosegui.googlemap.js
+/src/Jmelosegui.Mvc.GoogleMap.Examples.Core/wwwroot/js/jmelosegui.googlemap.js
+/src/Jmelosegui.Mvc.GoogleMap.Examples.Core/wwwroot/js/markerclusterer.js
 /src/.vs/config/applicationhost.config
 /tools
 /msbuild.*
+

@@ -4,14 +4,14 @@
 namespace Jmelosegui.Mvc.GoogleMap
 {
     using System;
-    using System.Drawing;
     using System.Globalization;
+    using Jmelosegui.Mvc.GoogleMap.Drawing;
 
     internal static class ColorExtension
     {
         public static string ToHtml(this Color c)
         {
-            return "#" + c.R.ToString("X2", null) + c.G.ToString("X2", null) + c.B.ToString("X2", null);
+            return $"#{c.R:X2}{c.G:X2}{c.B:X2}";
         }
 
         public static Color FromHtml(this string htmlValue)
@@ -23,11 +23,11 @@ namespace Jmelosegui.Mvc.GoogleMap
                 strColor = "FF" + strColor;
             }
 
-            int argb;
+            uint argb;
 
-            if (int.TryParse(strColor, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out argb))
-            {
-                return Color.FromArgb(argb);
+            if (uint.TryParse(strColor, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out argb))
+            {                
+                return new Color(argb);
             }
 
             throw new ArgumentException("Invalid Hex value. Hex must be either an ARGB (8 digits) or RGB (6 digits)");

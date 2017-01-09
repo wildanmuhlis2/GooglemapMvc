@@ -9,9 +9,16 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Globalization;
     using System.IO;
     using System.Linq;
+
+#if NET45
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.UI;
+#endif
+#if NETSTANDARD1_6
+    using Microsoft.AspNetCore.Mvc.Rendering;    
+#endif
+
 
     public class ScriptRegistrar
     {
@@ -34,7 +41,7 @@ namespace Jmelosegui.Mvc.GoogleMap
             this.Components = new Collection<Map>();
             this.FixedScriptCollection = new List<string>();
             viewContext.HttpContext.Items[Key] = this;
-            this.BasePath = "~/Scripts";
+            this.BasePath = "/Scripts";
             this.ViewContext = viewContext;
         }
 
@@ -61,11 +68,8 @@ namespace Jmelosegui.Mvc.GoogleMap
             {
                 throw new ArgumentNullException(nameof(writer));
             }
-
-            using (new HtmlTextWriter(writer))
-            {
-                this.Write(writer);
-            }
+                        
+            this.Write(writer);            
 
             this.hasRendered = true;
         }
@@ -110,9 +114,6 @@ namespace Jmelosegui.Mvc.GoogleMap
 
         private void WriteScriptSources(TextWriter writer)
         {
-            const string bundlePath = "~/jmelosegui/googlemap";
-            var bundle = new ScriptBundle(bundlePath);
-
             var scripts = this.Components.SelectMany(c => c.ScriptFileNames)
                               .Union(this.FixedScriptCollection)
                               .Distinct()
@@ -120,22 +121,19 @@ namespace Jmelosegui.Mvc.GoogleMap
 
             foreach (var scriptFileName in scripts)
             {
-                var localScriptFileName = scriptFileName;
+                var localScriptFileName = CombinePath(this.BasePath, scriptFileName);
 
                 if (scriptFileName.IndexOf("://", StringComparison.Ordinal) == -1)
                 {
-                    localScriptFileName = CombinePath(this.BasePath, scriptFileName);
-                    bundle.Include(localScriptFileName);
+                    localScriptFileName = CombinePath(this.BasePath, scriptFileName);                    
                 }
                 else
                 {
-                   writer.WriteLine(Scripts.Render(localScriptFileName).ToHtmlString());
+                    localScriptFileName = scriptFileName;
                 }
+
+                writer.WriteLine($"<script type='text/javascript' src='{localScriptFileName}'></script>");
             }
-
-            BundleTable.Bundles.Add(bundle);
-
-            writer.WriteLine(Scripts.Render(bundlePath).ToHtmlString());
         }
 
         private void WriteScriptStatements(TextWriter writer)

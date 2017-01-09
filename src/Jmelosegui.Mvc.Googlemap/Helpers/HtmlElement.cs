@@ -10,7 +10,14 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.IO;
     using System.Linq;
     using System.Text;
+
+#if NET45
     using System.Web.Mvc;
+#endif
+#if NETSTANDARD1_6
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using System.Text.Encodings.Web;
+#endif
 
     public class HtmlElement : IHtmlNode
     {
@@ -53,14 +60,18 @@ namespace Jmelosegui.Mvc.GoogleMap
                 if (this.Children.Any())
                 {
                     StringBuilder innerHtml = new StringBuilder();
-                    this.Children.Each(delegate(IHtmlNode child)
+                    this.Children.Each(delegate (IHtmlNode child)
                     {
                         innerHtml.Append(child);
                     });
                     return innerHtml.ToString();
                 }
-
+#if NET45
                 return this.tagBuilder.InnerHtml;
+#endif
+#if NETSTANDARD1_6
+                return this.tagBuilder.InnerHtml.ToString();
+#endif
             }
         }
 
@@ -252,11 +263,17 @@ namespace Jmelosegui.Mvc.GoogleMap
 
         public IHtmlNode Text(string value)
         {
+#if NET45
             this.tagBuilder.SetInnerText(value);
+#endif
+#if NETSTANDARD1_6
+            this.tagBuilder.InnerHtml.AppendHtml(value);
+#endif
             this.Children.Clear();
             return this;
         }
 
+#if NET45
         public void WriteTo(TextWriter output)
         {
             if (this.RenderMode != TagRenderMode.SelfClosing)
@@ -270,7 +287,7 @@ namespace Jmelosegui.Mvc.GoogleMap
                 {
                     if (this.Children.Any())
                     {
-                        this.Children.Each(delegate(IHtmlNode child)
+                        this.Children.Each(delegate (IHtmlNode child)
                         {
                             child.WriteTo(output);
                         });
@@ -287,5 +304,36 @@ namespace Jmelosegui.Mvc.GoogleMap
 
             output.Write(this.tagBuilder.ToString(TagRenderMode.SelfClosing));
         }
+#endif
+
+
+#if NETSTANDARD1_6
+        public void WriteTo(TextWriter output)
+        {
+            if (this.RenderMode != TagRenderMode.SelfClosing)
+            {
+                if (this.TemplateCallback != null)
+                {
+                    this.TemplateCallback(output);
+                }
+                else
+                {
+                    if (this.Children.Any())
+                    {
+                        this.Children.Each(delegate (IHtmlNode child)
+                        {
+                            child.WriteTo(output);
+                        });
+                    }
+                    else
+                    {
+                        this.tagBuilder.InnerHtml.WriteTo(output, HtmlEncoder.Default);
+                    }
+                }
+            }
+
+            this.tagBuilder.WriteTo(output, HtmlEncoder.Default);
+        }
+#endif
     }
 }

@@ -6,7 +6,12 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System;
     using System.Collections.Generic;
     using System.IO;
+#if NET45
     using System.Web.Mvc;
+#endif
+#if NETSTANDARD1_6
+    using Microsoft.AspNetCore.Mvc.Rendering;
+#endif    
 
     public interface IHtmlNode
     {
