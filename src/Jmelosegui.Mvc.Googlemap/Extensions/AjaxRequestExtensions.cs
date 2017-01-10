@@ -1,4 +1,7 @@
-﻿#if NETSTANDARD1_6
+﻿// Copyright (c) Juan M. Elosegui. All rights reserved.
+// Licensed under the GPL v2 license. See LICENSE.txt file in the project root for full license information.
+
+#if NETSTANDARD1_6
 
 namespace Jmelosegui.Mvc.GoogleMap
 {

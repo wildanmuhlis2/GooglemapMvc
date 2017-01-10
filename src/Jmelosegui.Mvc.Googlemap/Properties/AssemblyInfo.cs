@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Juan M. Elosegui. All rights reserved.
 // Licensed under the GPL v2 license. See LICENSE.txt file in the project root for full license information.
 
-using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -21,5 +20,3 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("9ea87b5d-ed27-4404-a385-edac55eca838")]
-
-[assembly: CLSCompliant(true)]

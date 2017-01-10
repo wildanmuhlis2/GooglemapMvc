@@ -1,7 +1,10 @@
-﻿using System;
+﻿// Copyright (c) Juan M. Elosegui. All rights reserved.
+// Licensed under the GPL v2 license. See LICENSE.txt file in the project root for full license information.
 
 namespace Jmelosegui.Mvc.GoogleMap.Drawing
 {
+    using System;
+
     public partial struct Color : IEquatable<Color>
     {
         // Stored as RGBA color in the following order
@@ -28,6 +31,7 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
                 g = Clamp(g, byte.MinValue, byte.MaxValue);
                 b = Clamp(b, byte.MinValue, byte.MaxValue);
             }
+
             argbValue = ((uint)alpha << 24) | ((uint)r << 16) | ((uint)g << 8) | ((uint)b);
         }
 
@@ -40,6 +44,7 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
                     return (byte)(this.argbValue >> 24);
                 }
             }
+
             set
             {
                 this.argbValue = (this.argbValue & 0x00FFFFFF) | ((uint)value << 24);
@@ -55,6 +60,7 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
                     return (byte)(this.argbValue >> 16);
                 }
             }
+
             set
             {
                 this.argbValue = (this.argbValue & 0xFF00FFFF) | ((uint)value << 16);
@@ -70,6 +76,7 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
                     return (byte)(this.argbValue >> 8);
                 }
             }
+
             set
             {
                 this.argbValue = (this.argbValue & 0xFFFF00FF) | ((uint)value << 8);
@@ -85,6 +92,7 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
                     return (byte)this.argbValue;
                 }
             }
+
             set
             {
                 this.argbValue = (this.argbValue & 0xFFFFFF00) | value;
@@ -95,12 +103,12 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
 
         public static bool operator ==(Color color1, Color color2)
         {
-            return (color1.argbValue == color2.argbValue);
+            return color1.argbValue == color2.argbValue;
         }
 
         public static bool operator !=(Color color1, Color color2)
         {
-            return (color1.argbValue != color2.argbValue);
+            return color1.argbValue != color2.argbValue;
         }
 
         public override int GetHashCode()
@@ -119,6 +127,7 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
             {
                 return false;
             }
+
             Color comp = (Color)obj;
             return comp.argbValue == this.argbValue;
         }
@@ -128,11 +137,20 @@ namespace Jmelosegui.Mvc.GoogleMap.Drawing
             return $"{{A: {A} R: {R} G: {G} B: {B}}}";
         }
 
-        private static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
+        private static T Clamp<T>(T val, T min, T max)
+            where T : IComparable<T>
         {
-            if (val.CompareTo(min) < 0) return min;
-            else if (val.CompareTo(max) > 0) return max;
-            else return val;
+            if (val.CompareTo(min) < 0)
+            {
+                return min;
+            }
+
+            if (val.CompareTo(max) > 0)
+            {
+                return max;
+            }
+
+            return val;
         }
     }
 }

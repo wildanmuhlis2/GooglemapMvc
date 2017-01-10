@@ -12,10 +12,10 @@ namespace Jmelosegui.Mvc.GoogleMap
 #endif
 
 #if NETSTANDARD1_6
+    using System.IO;
+    using System.Text.Encodings.Web;
     using Microsoft.AspNetCore.Html;
     using Microsoft.AspNetCore.Mvc.Rendering;
-    using System.Text.Encodings.Web;    
-    using System.IO;
 #endif
 
     public class MapBuilder :
@@ -382,7 +382,7 @@ namespace Jmelosegui.Mvc.GoogleMap
 
             this.Component.Libraries = value;
             return this;
-        }        
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public MapBuilder BindTo<T, TMapObject>(IEnumerable<T> dataSource, Action<MapObjectBindingFactory<TMapObject>> itemDataBound)
@@ -455,10 +455,12 @@ namespace Jmelosegui.Mvc.GoogleMap
             {
                 throw new ArgumentNullException("writer");
             }
+
             if (encoder == null)
             {
                 throw new ArgumentNullException("encoder");
             }
+
             writer.Write(this.ToString());
         }
 #endif

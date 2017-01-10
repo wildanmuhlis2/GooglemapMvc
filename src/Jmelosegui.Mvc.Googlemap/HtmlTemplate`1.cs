@@ -9,8 +9,8 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Web.WebPages;
 #endif
 #if NETSTANDARD1_6
-    using Microsoft.AspNetCore.Mvc.Razor;
     using System.Text.Encodings.Web;
+    using Microsoft.AspNetCore.Mvc.Razor;
 #endif
 
     public class HtmlTemplate<T>

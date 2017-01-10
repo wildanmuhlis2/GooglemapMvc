@@ -3,7 +3,6 @@
 
 namespace Jmelosegui.Mvc.GoogleMap
 {
-    
     using System;
 #if NET45
     using System.Web.Mvc;
@@ -16,12 +15,11 @@ namespace Jmelosegui.Mvc.GoogleMap
     {
         public static MapBuilder GoogleMap(
 #if NET45
-            this HtmlHelper helper
+            this HtmlHelper helper)
 #endif
 #if NETSTANDARD1_6
-            this IHtmlHelper helper
+            this IHtmlHelper helper)
 #endif
-            )
         {
             if (helper == null)
             {

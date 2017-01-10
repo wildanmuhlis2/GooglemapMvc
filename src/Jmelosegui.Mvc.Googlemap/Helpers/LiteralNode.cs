@@ -13,7 +13,6 @@ namespace Jmelosegui.Mvc.GoogleMap
     using Microsoft.AspNetCore.Mvc.Rendering;
 #endif
 
-
     public class LiteralNode : IHtmlNode
     {
         public LiteralNode(string content)

@@ -15,8 +15,8 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Web.Mvc;
 #endif
 #if NETSTANDARD1_6
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Text.Encodings.Web;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 #endif
 
     public class HtmlElement : IHtmlNode
@@ -60,7 +60,7 @@ namespace Jmelosegui.Mvc.GoogleMap
                 if (this.Children.Any())
                 {
                     StringBuilder innerHtml = new StringBuilder();
-                    this.Children.Each(delegate (IHtmlNode child)
+                    this.Children.Each(delegate(IHtmlNode child)
                     {
                         innerHtml.Append(child);
                     });
@@ -287,7 +287,7 @@ namespace Jmelosegui.Mvc.GoogleMap
                 {
                     if (this.Children.Any())
                     {
-                        this.Children.Each(delegate (IHtmlNode child)
+                        this.Children.Each(delegate(IHtmlNode child)
                         {
                             child.WriteTo(output);
                         });
@@ -306,7 +306,6 @@ namespace Jmelosegui.Mvc.GoogleMap
         }
 #endif
 
-
 #if NETSTANDARD1_6
         public void WriteTo(TextWriter output)
         {
@@ -320,7 +319,7 @@ namespace Jmelosegui.Mvc.GoogleMap
                 {
                     if (this.Children.Any())
                     {
-                        this.Children.Each(delegate (IHtmlNode child)
+                        this.Children.Each(delegate(IHtmlNode child)
                         {
                             child.WriteTo(output);
                         });

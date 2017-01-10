@@ -26,7 +26,7 @@ namespace Jmelosegui.Mvc.GoogleMap
             uint argb;
 
             if (uint.TryParse(strColor, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out argb))
-            {                
+            {
                 return new Color(argb);
             }
 

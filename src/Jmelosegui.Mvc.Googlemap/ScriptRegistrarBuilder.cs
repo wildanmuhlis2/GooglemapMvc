@@ -7,12 +7,11 @@ namespace Jmelosegui.Mvc.GoogleMap
 #if NET45
     using System.Web;
 #endif
-#if NETSTANDARD1_6    
-    using Microsoft.AspNetCore.Html;
-    using System.Text.Encodings.Web;
+#if NETSTANDARD1_6
     using System.IO;
+    using System.Text.Encodings.Web;
+    using Microsoft.AspNetCore.Html;
 #endif
-
 
     public class ScriptRegistrarBuilder
 #if NET45
@@ -21,7 +20,6 @@ namespace Jmelosegui.Mvc.GoogleMap
 #if NETSTANDARD1_6
     : IHtmlContent
 #endif
-
     {
         public ScriptRegistrarBuilder(ScriptRegistrar scriptRegistrar)
         {
@@ -74,10 +72,12 @@ namespace Jmelosegui.Mvc.GoogleMap
             {
                 throw new ArgumentNullException("writer");
             }
+
             if (encoder == null)
             {
                 throw new ArgumentNullException("encoder");
             }
+
             writer.Write(this.ToString());
         }
 #endif

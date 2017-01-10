@@ -33,7 +33,7 @@ namespace Jmelosegui.Mvc.GoogleMap
 #if NET45
             string pathWithoutHostName = VirtualPathUtility.ToAbsolute(url);
             Uri originalUri = HttpContext.Current.Request.Url;
-            var result = $"{originalUri.Scheme}://{originalUri.Authority}{pathWithoutHostName}";            
+            var result = $"{originalUri.Scheme}://{originalUri.Authority}{pathWithoutHostName}";
 #endif
 #if NETSTANDARD1_6
             var contextAccessor = new HttpContextAccessor();
@@ -48,7 +48,6 @@ namespace Jmelosegui.Mvc.GoogleMap
                         request.QueryString.ToUriComponent());
 #endif
             return result;
-
         }
     }
 }

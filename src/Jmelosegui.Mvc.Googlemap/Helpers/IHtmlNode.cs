@@ -11,7 +11,7 @@ namespace Jmelosegui.Mvc.GoogleMap
 #endif
 #if NETSTANDARD1_6
     using Microsoft.AspNetCore.Mvc.Rendering;
-#endif    
+#endif
 
     public interface IHtmlNode
     {

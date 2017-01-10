@@ -16,9 +16,8 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Web.UI;
 #endif
 #if NETSTANDARD1_6
-    using Microsoft.AspNetCore.Mvc.Rendering;    
+    using Microsoft.AspNetCore.Mvc.Rendering;
 #endif
-
 
     public class ScriptRegistrar
     {
@@ -68,8 +67,8 @@ namespace Jmelosegui.Mvc.GoogleMap
             {
                 throw new ArgumentNullException(nameof(writer));
             }
-                        
-            this.Write(writer);            
+
+            this.Write(writer);
 
             this.hasRendered = true;
         }
@@ -125,7 +124,7 @@ namespace Jmelosegui.Mvc.GoogleMap
 
                 if (scriptFileName.IndexOf("://", StringComparison.Ordinal) == -1)
                 {
-                    localScriptFileName = CombinePath(this.BasePath, scriptFileName);                    
+                    localScriptFileName = CombinePath(this.BasePath, scriptFileName);
                 }
                 else
                 {

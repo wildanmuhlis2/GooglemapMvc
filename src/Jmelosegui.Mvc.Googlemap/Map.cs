@@ -8,11 +8,11 @@ namespace Jmelosegui.Mvc.GoogleMap
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
-    using System.Linq;    
+    using System.Linq;
 #if NET45
+    using System.Threading;
     using System.Web.Mvc;
     using System.Web.UI;
-    using System.Threading;
 #endif
 
     public class Map
@@ -161,9 +161,8 @@ namespace Jmelosegui.Mvc.GoogleMap
 
         public void Render()
         {
-            TextWriter writer = this.builder.ViewContext.Writer;            
+            TextWriter writer = this.builder.ViewContext.Writer;
             this.WriteHtml(writer);
-            
         }
 
         public string ToHtmlString()
@@ -184,9 +183,8 @@ namespace Jmelosegui.Mvc.GoogleMap
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 #endif
-
-            //TODO Is this available on FULL Framework?
 #if NETSTANDARD1_6
+            // TODO: Is this available on FULL Framework?
             var currentCulture = CultureInfo.CurrentCulture;
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
 #endif
@@ -241,11 +239,11 @@ namespace Jmelosegui.Mvc.GoogleMap
             objectWriter.Complete();
 
 #if NET45
-            Thread.CurrentThread.CurrentCulture = currentCulture; 
+            Thread.CurrentThread.CurrentCulture = currentCulture;
 #endif
 
 #if NETSTANDARD1_6
-            CultureInfo.CurrentCulture = currentCulture; 
+            CultureInfo.CurrentCulture = currentCulture;
 #endif
         }
 
