@@ -10,6 +10,15 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <CodeAnalysisRuleSet>..\Jmelosegui.Mvc.GoogleMap.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>Jmelosegui.Mvc.Googlemap</PackageId>
+    <PackageVersion>$version$</PackageVersion>
+    <Authors>Juan M. Elosegui</Authors>
+    <PackageProjectUrl>https://github.com/jmelosegui/GooglemapMvc</PackageProjectUrl>
+    <Description>GoogleMap control for AspNet.Mvc wraps Google Maps API simplifying the use of Google Maps in ASP.NET MVC applications.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Google maps GoogleMap AspNet Mvc AspNetMvc</PackageTags>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="**\*.cs" />
     <EmbeddedResource Include="**\*.resx" />
@@ -17,6 +26,33 @@
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeAnalysisDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Jmelosegui.Mvc.Googlemap.nuspec" />
+    <None Include="Jmelosegui.Mvc.Googlemap.snk" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Content Include="Scripts\jmelosegui.googlemap.js">
+      <Pack>true</Pack>
+      <PackagePath>Scripts</PackagePath>
+    </Content>
+    <Content Include="Scripts\markerclusterer.js">
+      <Pack>true</Pack>
+      <PackagePath>Scripts</PackagePath>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <Content Include="Scripts\jmelosegui.googlemap.js">
+      <Pack>true</Pack>
+      <PackagePath>wwwroot\js</PackagePath>
+    </Content>
+    <Content Include="Scripts\markerclusterer.js">
+      <Pack>true</Pack>
+      <PackagePath>wwwroot\js</PackagePath>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning">
