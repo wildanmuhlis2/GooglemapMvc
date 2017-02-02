@@ -2,13 +2,10 @@ version: 1.0.{build}
 image: Visual Studio 2017 RC
 configuration: Release
 before_build:
-- ps: nuget restore src
+- ps: msbuild /t:restore c:\projects\googlemapmvc\src\Jmelosegui.Mvc.Googlemap.sln
 build:
   project: src\Jmelosegui.Mvc.Googlemap.sln
   verbosity: minimal
-artifacts:
-- path: src\Jmelosegui.Mvc.Googlemap.Nuget\bin\**\*.nupkg
-  name: NuGet Package
 notifications:
 - provider: Webhook
   url: https://webhooks.gitter.im/e/31d7939f8a726224451f

@@ -41,7 +41,6 @@ $ToolsFolder = Join-Path $ProjectRoot tools
 $NuGetPath = Join-Path $ToolsFolder "NuGet.exe"
 $NuGetCommand = Get-Command $NuGetPath -ErrorAction SilentlyContinue
 $MSBuildCommand = Get-Command MSBuild.exe -ErrorAction SilentlyContinue
-$VSTestConsoleCommand = Get-Command vstest.console.exe -ErrorAction SilentlyContinue
 
 Function Get-ExternalTools {
     if (!$NuGetCommand) {
@@ -57,11 +56,6 @@ Function Get-ExternalTools {
     if (!$MSBuildCommand) {
         Write-Error "Unable to find MSBuild.exe. Make sure you're running in a VS Developer Prompt."
         exit 1;
-    }
-    
-    if (!$VSTestConsoleCommand) {
-        Write-Error "Unable to find vstest.console.exe. Make sure you're running in a VS Developer prompt."
-        exit 2;
     }
 }
 
