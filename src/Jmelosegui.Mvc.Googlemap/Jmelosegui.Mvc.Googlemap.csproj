@@ -11,12 +11,13 @@
     <CodeAnalysisRuleSet>..\Jmelosegui.Mvc.GoogleMap.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>Jmelosegui.Mvc.Googlemap</PackageId>    
+    <PackageId>Jmelosegui.Mvc.Googlemap</PackageId>
     <Authors>Juan M. Elosegui</Authors>
     <PackageProjectUrl>https://github.com/jmelosegui/GooglemapMvc</PackageProjectUrl>
     <Description>GoogleMap control for AspNet.Mvc wraps Google Maps API simplifying the use of Google Maps in ASP.NET MVC applications.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Google maps GoogleMap AspNet Mvc AspNetMvc</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
